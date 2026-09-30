@@ -65,19 +65,19 @@ require_once __DIR__ . '/includes/header.php';
                 <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="employee_id">Employee ID</label>
-                    <input type="text" id="employee_id" name="employee_id" class="form-control" placeholder="e.g. EMP001" value="<?php echo e($post['employee_id'] ?? ''); ?>">
+                    <input type="text" id="employee_id" name="employee_id" class="form-control" placeholder="e.g. EMP001" value="<?php echo e($post['employee_id'] ?? ''); ?>" autocomplete="username" required autofocus>
                 </div>
                 <div class="form-group">
                     <label for="first_name">First Name</label>
-                    <input type="text" id="first_name" name="first_name" class="form-control" value="<?php echo e($post['first_name'] ?? ''); ?>">
+                    <input type="text" id="first_name" name="first_name" class="form-control" value="<?php echo e($post['first_name'] ?? ''); ?>" autocomplete="given-name" required>
                 </div>
                 <div class="form-group">
                     <label for="last_name">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" class="form-control" value="<?php echo e($post['last_name'] ?? ''); ?>">
+                    <input type="text" id="last_name" name="last_name" class="form-control" value="<?php echo e($post['last_name'] ?? ''); ?>" autocomplete="family-name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" value="<?php echo e($post['email'] ?? ''); ?>">
+                    <input type="email" id="email" name="email" class="form-control" value="<?php echo e($post['email'] ?? ''); ?>" autocomplete="email" required>
                 </div>
                 <div class="form-group">
                     <label for="department_id">Department</label>
@@ -99,11 +99,11 @@ require_once __DIR__ . '/includes/header.php';
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="At least 6 characters">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" autocomplete="new-password" required>
                 </div>
                 <div class="form-group">
                     <label for="password2">Confirm Password</label>
-                    <input type="password" id="password2" name="password2" class="form-control">
+                    <input type="password" id="password2" name="password2" class="form-control" minlength="6" autocomplete="new-password" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>

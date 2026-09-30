@@ -186,7 +186,7 @@ ADMIN,Admin User,2026-02-18,08:45</pre>
 
         <?php if (!empty($imported_data)): ?>
             <h3>Import Details</h3>
-            <table class="attendance-table">
+            <div class="table-wrap"><table class="attendance-table">
                 <thead>
                     <tr>
                         <th>Row</th>
@@ -213,7 +213,7 @@ ADMIN,Admin User,2026-02-18,08:45</pre>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
-            </table>
+            </table></div>
         <?php endif; ?>
     </div>
 </div>

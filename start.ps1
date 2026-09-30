@@ -1,7 +1,7 @@
-# AIMS HRMS - PowerShell Start Script
+# Attendly - PowerShell Start Script
 
 Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  AIMS HRMS - Starting Application" -ForegroundColor Cyan
+Write-Host "  Attendly - Starting Application" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 

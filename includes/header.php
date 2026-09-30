@@ -1,5 +1,5 @@
 <?php
-if (!isset($page_title)) $page_title = 'HRMS';
+if (!isset($page_title)) $page_title = 'Attendly';
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,4 +1,4 @@
-## AIMS HRMS (PHP Version) – Portal Guide
+## Attendly – Portal Guide
 
 ### 1. Overview
 
@@ -167,7 +167,7 @@ There are three admin accounts designed for testing/production setup:
 
 **How to create HRADMIN1 and HRADMIN2 in your database**
 
-From the `hrms_php` folder, run:
+From the `Attendance-System` folder, run:
 
 ```bash
 php create_admin_users.php
@@ -197,7 +197,7 @@ You can then log in to the portal using those credentials.
 
 ### 5. How to Export This Guide as PDF
 
-This file is `HRMS_Portal_Guide.md` in the `hrms_php` folder.
+This file is `HRMS_Portal_Guide.md` in the `Attendance-System` folder.
 
 To create a **PDF**:
 

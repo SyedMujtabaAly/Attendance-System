@@ -109,7 +109,7 @@ require_once __DIR__ . '/includes/header.php';
                 </tr>
                 <?php endforeach; ?>
                 <?php if (empty($attendance_records)): ?>
-                    <tr><td colspan="4">No records for this month.</td></tr>
+                    <tr><td colspan="<?php echo !empty($current_user['is_staff']) ? 5 : 4; ?>">No records for this month.</td></tr>
                 <?php endif; ?>
             </tbody>
         </table></div>

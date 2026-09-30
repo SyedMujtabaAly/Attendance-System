@@ -1,14 +1,14 @@
-# Quick Start Guide - HRMS PHP
+# Attendly Quick Start Guide
 
 ## 🚀 Fastest Way to Run (Windows)
 
 ### Option 1: Double-click the batch file
-1. Navigate to the `hrms_php` folder
+1. Navigate to the `Attendance-System` folder
 2. **Double-click `start.bat`**
 3. Open your browser to **http://localhost:8080**
 
 ### Option 2: Use PowerShell script
-1. Right-click in the `hrms_php` folder
+1. Right-click in the `Attendance-System` folder
 2. Select **"Open PowerShell window here"**
 3. Run: `.\start.ps1`
 4. Open your browser to **http://localhost:8080**
@@ -37,7 +37,7 @@ php --version
 You should see PHP version info. If not, PHP is not in PATH.
 
 ### Step 3: Setup Database (First Time Only)
-Open PowerShell/CMD in the `hrms_php` folder and run:
+Open PowerShell/CMD in the `Attendance-System` folder and run:
 ```bash
 php setup.php
 ```
@@ -110,7 +110,7 @@ Press **Ctrl + C** in the terminal where the server is running.
   - Update the browser URL accordingly
 
 ### "Permission denied" on Windows
-- Right-click the `hrms_php` folder → Properties → Security
+- Right-click the `Attendance-System` folder → Properties → Security
 - Make sure your user has "Full control" or at least "Modify" permissions
 
 ---
@@ -124,12 +124,3 @@ php -S localhost:3000
 ```
 
 Then open: `http://localhost:3000`
-
----
-
-## 📁 Project Location
-
-Your PHP HRMS is located at:
-```
-C:\Users\User\Documents\Mujtaba Projects\HRMS_Project\hrms_php
-```

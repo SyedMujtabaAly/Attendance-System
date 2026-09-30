@@ -2,7 +2,7 @@
 /**
  * One-time script to create extra admin accounts.
  *
- * Run from the hrms_php folder:
+ * Run from the Attendance-System folder:
  *   php create_admin_users.php
  */
 

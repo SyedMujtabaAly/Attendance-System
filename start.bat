@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo   AIMS HRMS - Starting Application
+echo   Attendly - Starting Application
 echo ========================================
 echo.
 
