@@ -1,0 +1,18 @@
+# Runtime database and local backups
+data/*.sqlite
+data/*.sqlite-*
+*.db
+
+# Environment and editor files
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary uploads
+*.log
+tmp/
+uploads/

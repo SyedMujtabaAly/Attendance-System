@@ -14,7 +14,7 @@ $year = (int)($month_parts[0] ?? date('Y'));
 $month = (int)($month_parts[1] ?? date('m'));
 $month_start = sprintf('%04d-%02d-01', $year, $month);
 $month_end = date('Y-m-t', strtotime($month_start));
-$total_days = (int) date('t', strtotime($month_start));
+$total_days = working_days_elapsed($year, $month);
 
 $sql = 'SELECT u.id, u.username, u.first_name, u.last_name, d.name AS department_name FROM users u LEFT JOIN departments d ON u.department_id = d.id WHERE u.is_active = 1';
 $params = [];
@@ -90,7 +90,7 @@ require_once __DIR__ . '/includes/header.php';
         <p><strong>Period:</strong> <?php echo e(date('F Y', strtotime($month_start))); ?></p>
         <p><a href="import_attendance.php" class="btn btn-primary">📥 Import from Excel/CSV</a></p>
 
-        <table class="attendance-table">
+        <div class="table-wrap"><table class="attendance-table">
             <thead>
                 <tr>
                     <th>Employee ID</th>
@@ -122,7 +122,7 @@ require_once __DIR__ . '/includes/header.php';
                     <tr><td colspan="9">No employees found.</td></tr>
                 <?php endif; ?>
             </tbody>
-        </table>
+        </table></div>
     </div>
 </div>
 

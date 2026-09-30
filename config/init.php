@@ -2,7 +2,14 @@
 /**
  * Bootstrap: session, config, helpers
  */
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_set_cookie_params([
+        'httponly' => true,
+        'samesite' => 'Lax',
+        'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+    ]);
+    session_start();
+}
 
 $base_path = dirname(__DIR__);
 $pdo = require $base_path . '/config/database.php';
@@ -50,6 +57,40 @@ function get_flash($key) {
 }
 function set_flash($key, $message) {
     $_SESSION['flash_' . $key] = $message;
+}
+
+// CSRF protection for every state-changing form.
+function csrf_token() {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function csrf_field() {
+    return '<input type="hidden" name="csrf_token" value="' . e(csrf_token()) . '">';
+}
+
+function verify_csrf() {
+    $token = $_POST['csrf_token'] ?? '';
+    if (!is_string($token) || !hash_equals(csrf_token(), $token)) {
+        http_response_code(403);
+        exit('The request could not be verified. Please go back, refresh the page, and try again.');
+    }
+}
+
+function working_days_elapsed($year, $month) {
+    $today = new DateTimeImmutable('today');
+    $start = new DateTimeImmutable(sprintf('%04d-%02d-01', $year, $month));
+    $end = $start->modify('last day of this month');
+    if ($start > $today) return 0;
+    if ($end > $today) $end = $today;
+
+    $count = 0;
+    for ($day = $start; $day <= $end; $day = $day->modify('+1 day')) {
+        if ((int) $day->format('N') <= 5) $count++;
+    }
+    return $count;
 }
 
 // Escape for HTML

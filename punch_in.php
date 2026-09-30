@@ -5,6 +5,7 @@ require_login();
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect('dashboard.php');
 }
+verify_csrf();
 
 $user = $current_user;
 $today = date('Y-m-d');

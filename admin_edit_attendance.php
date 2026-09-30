@@ -12,6 +12,7 @@ $success = false;
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verify_csrf();
     $attendance_id = (int)($_POST['attendance_id'] ?? 0);
     $employee_id = trim($_POST['employee_id'] ?? '');
     $date = trim($_POST['date'] ?? '');
@@ -95,6 +96,7 @@ require_once __DIR__ . '/includes/header.php';
             <p>Please select an attendance record to edit from the <a href="attendance_report.php">Attendance Report</a>.</p>
         <?php else: ?>
             <form method="post" action="admin_edit_attendance.php">
+                <?php echo csrf_field(); ?>
                 <input type="hidden" name="attendance_id" value="<?php echo $attendance['id']; ?>">
                 <input type="hidden" name="employee_id" value="<?php echo e($attendance['username']); ?>">
 

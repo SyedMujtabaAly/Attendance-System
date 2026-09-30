@@ -9,6 +9,7 @@ $errors = [];
 $post = $_POST;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verify_csrf();
     $employee_id = trim($post['employee_id'] ?? '');
     $first_name = trim($post['first_name'] ?? '');
     $last_name = trim($post['last_name'] ?? '');
@@ -61,6 +62,7 @@ require_once __DIR__ . '/includes/header.php';
                 <div class="alert alert-error"><?php echo e($err); ?></div>
             <?php endforeach; ?>
             <form method="post" action="register.php">
+                <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="employee_id">Employee ID</label>
                     <input type="text" id="employee_id" name="employee_id" class="form-control" placeholder="e.g. EMP001" value="<?php echo e($post['employee_id'] ?? ''); ?>">

@@ -76,7 +76,7 @@ require_once __DIR__ . '/includes/header.php';
 
         <h2><?php echo e(date('F Y', strtotime($month_start))); ?></h2>
 
-        <table class="attendance-table">
+        <div class="table-wrap"><table class="attendance-table">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -112,7 +112,7 @@ require_once __DIR__ . '/includes/header.php';
                     <tr><td colspan="4">No records for this month.</td></tr>
                 <?php endif; ?>
             </tbody>
-        </table>
+        </table></div>
 
         <?php if (!empty($current_user['is_staff'])): ?>
             <p><a href="attendance_report.php" class="btn btn-secondary">Back to Report</a></p>

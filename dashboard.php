@@ -24,8 +24,8 @@ foreach ($monthly_attendance as $r) {
     if (!empty($r['punch_in_time'])) $total_present++;
     if (!empty($r['is_late'])) $total_late++;
 }
-$days_in_month = (int) date('t');
-$total_absent = max(0, $days_in_month - $total_present);
+$working_days = working_days_elapsed((int) date('Y'), (int) date('m'));
+$total_absent = max(0, $working_days - $total_present);
 
 $attendance_status = 'Not Punched In';
 if ($today_attendance) {
@@ -66,11 +66,13 @@ require_once __DIR__ . '/includes/header.php';
         <div class="punch-actions">
             <?php if (!$today_attendance || !$today_attendance['punch_in_time']): ?>
                 <form method="post" action="punch_in.php">
+                    <?php echo csrf_field(); ?>
                     <button type="submit" class="btn btn-success">Punch In</button>
                 </form>
             <?php endif; ?>
             <?php if ($today_attendance && $today_attendance['punch_in_time'] && !$today_attendance['punch_out_time']): ?>
                 <form method="post" action="punch_out.php">
+                    <?php echo csrf_field(); ?>
                     <button type="submit" class="btn btn-warning">Punch Out</button>
                 </form>
             <?php endif; ?>
@@ -97,7 +99,7 @@ require_once __DIR__ . '/includes/header.php';
         <p><a href="employee_attendance.php?employee_id=<?php echo e(urlencode($user['username'])); ?>&month=<?php echo e(date('Y-m')); ?>" class="btn btn-secondary">View my attendance details</a></p>
 
         <h3>Attendance Records</h3>
-        <table class="attendance-table">
+        <div class="table-wrap"><table class="attendance-table">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -127,7 +129,7 @@ require_once __DIR__ . '/includes/header.php';
                     <tr><td colspan="4">No records this month.</td></tr>
                 <?php endif; ?>
             </tbody>
-        </table>
+        </table></div>
     </div>
 </div>
 

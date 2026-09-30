@@ -13,6 +13,7 @@ $error_count = 0;
 $imported_data = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excel_file'])) {
+    verify_csrf();
     $file = $_FILES['excel_file'];
     
     if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -174,6 +175,7 @@ ADMIN,Admin User,2026-02-18,08:45</pre>
         <?php endif; ?>
 
         <form method="post" enctype="multipart/form-data" action="import_attendance.php">
+            <?php echo csrf_field(); ?>
             <div class="form-group">
                 <label for="excel_file">Select CSV File</label>
                 <input type="file" id="excel_file" name="excel_file" class="form-control" accept=".csv,.xlsx,.xls" required>

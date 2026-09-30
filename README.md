@@ -1,89 +1,133 @@
-# HRMS - PHP Version (HTML, PHP, CSS)
+# Attendly — Attendance Management System
 
-This is the same HRMS (Human Resource Management System) as the Django project, built with **HTML**, **PHP**, and **CSS**. It uses SQLite by default so you can run it without installing MySQL.
+A lightweight, role-based attendance web application built with PHP and SQLite. Attendly gives employees a clean self-service dashboard and gives HR staff the reporting and data-management tools needed to review attendance at a glance.
 
-## Features
+> Portfolio project: this repository demonstrates server-rendered PHP, secure session authentication, relational data modeling, role-based authorization, CSV processing, and responsive interface design without a framework.
 
-- **Home** – Landing page with Login / Register
-- **Login / Register / Logout** – Employee ID and password
-- **Dashboard** – Today’s status, Punch In / Punch Out, month summary, attendance list
-- **Late detection** – Marks attendance as late if punch-in is after shift start time
-- **Attendance Report** (staff only) – Filter by month and department, view all employees
-- **Employee Attendance** – Detailed records for an employee (own or by staff)
+## What it does
 
-## Requirements
+### Employee experience
 
-- PHP 7.4+ (with PDO SQLite extension, usually enabled by default)
+- Secure registration and Employee ID login
+- One-click punch in and punch out
+- Automatic late detection based on assigned shifts
+- Monthly present, late, and weekday absence summaries
+- Personal attendance history with status indicators
 
-## Setup
+### HR and admin experience
 
-1. **Run the one-time setup** (creates `data/` and SQLite database):
+- Department and month filters
+- Team attendance and punctuality reporting
+- Per-employee attendance history
+- Authorized attendance corrections
+- CSV import with flexible columns and row-level feedback
 
-   ```bash
-   php setup.php
-   ```
+## Tech stack
 
-   This also creates a default **admin** user:
-   - **Employee ID:** `ADMIN`
-   - **Password:** `admin123`
-   - **is_staff:** Yes (can access Attendance Report)
+| Layer | Technology |
+| --- | --- |
+| Backend | PHP 7.4+ |
+| Database | SQLite with PDO |
+| Frontend | Semantic HTML5 and responsive CSS |
+| Authentication | PHP sessions and password hashing |
+| Data exchange | CSV import |
 
-2. **Run the built-in PHP server** (from the `hrms_php` folder):
+## Security and quality highlights
 
-   ```bash
-   cd hrms_php
-   php -S localhost:8080
-   ```
+- Prepared statements for database access
+- PHP password hashing and verification
+- CSRF tokens on state-changing forms
+- Session ID rotation after login
+- HTTP-only, SameSite session cookies
+- Output escaping to reduce XSS risk
+- Server-side role checks for HR-only features
+- Unique database constraints to prevent duplicate daily records
 
-3. Open **http://localhost:8080** in your browser.
+## Quick start
 
-## Project Structure
+### Requirements
 
-```
-hrms_php/
-├── config/
-│   ├── database.php   # DB connection (SQLite / MySQL)
-│   └── init.php       # Session, helpers, current user
-├── css/
-│   └── style.css      # Main styles
-├── includes/
-│   ├── header.php     # Layout header + nav
-│   └── footer.php     # Layout footer
-├── sql/
-│   └── schema.sql     # Table definitions + seed data
-├── data/              # Created by setup (SQLite DB)
-├── index.php          # Home
-├── login.php
-├── register.php
-├── logout.php
-├── dashboard.php      # Employee dashboard
-├── punch_in.php       # POST: punch in
-├── punch_out.php      # POST: punch out
-├── attendance_report.php   # Staff: report by month/department
-├── employee_attendance.php # Attendance details per employee
-├── setup.php          # One-time DB setup
-└── README.md
+- PHP 7.4 or newer
+- PDO SQLite and SQLite3 PHP extensions
+
+### Run locally
+
+```bash
+git clone <your-repository-url>
+cd Attendance-System
+php setup.php
+php -S localhost:8080
 ```
 
-## Using MySQL Instead of SQLite
+Open [http://localhost:8080](http://localhost:8080).
 
-1. Create a database (e.g. `hrms`).
-2. In `config/database.php`, comment out the SQLite block and uncomment the MySQL block; set host, dbname, username, and password.
-3. Run the SQL in `sql/schema.sql` in your MySQL client (adjust `AUTOINCREMENT` to `AUTO_INCREMENT` and `INTEGER` primary keys if needed for MySQL).
-4. Create an admin user manually (set `is_staff = 1`) or adapt `setup.php` for MySQL.
+On Windows, run `start.bat` or `./start.ps1`; either script initializes the database when necessary and starts the development server.
 
-## Making a User “Staff” (Admin)
+### Demo administrator
 
-Staff users can open **Attendance Report**. To set an existing user as staff, run:
+The setup command creates a local demo administrator when the user table is empty:
 
-```sql
-UPDATE users SET is_staff = 1 WHERE username = 'EMPLOYEE_ID';
+```text
+Employee ID: ADMIN
+Password:    admin123
 ```
 
-(Or use the default `ADMIN` / `admin123` account created by `setup.php`.)
+This credential is intended for local demonstration only. Change or remove it before any public deployment.
 
-## Security Note
+## Project structure
 
-- Change the default admin password after first login.
-- In production, remove or restrict access to `setup.php`.
-- Use HTTPS and secure session settings on a real server.
+```text
+Attendance-System/
+├── config/                  # Database connection and shared helpers
+├── css/                     # Responsive application styles
+├── data/                    # Local SQLite runtime data (gitignored)
+├── includes/                # Shared header and footer
+├── sql/                     # Schema, indexes, and starter data
+├── dashboard.php            # Employee overview and punch actions
+├── attendance_report.php    # HR reporting workspace
+├── employee_attendance.php  # Employee record detail
+├── import_attendance.php    # CSV import workflow
+├── setup.php                # Local database initialization
+└── index.php                # Product landing page
+```
+
+## CSV import format
+
+Download `attendance_template.csv` or provide a CSV with these headers:
+
+```csv
+Employee ID,Employee Name,Date,Punch In Time,Punch Out Time
+EMP001,Alex Morgan,2026-09-28,08:55,17:04
+```
+
+`Employee ID`, `Date`, and `Punch In Time` are required. Employee name and punch-out time are optional.
+
+## Data model
+
+- **departments** define organizational groups.
+- **shifts** define start and end times.
+- **users** represent employees and their role, department, and shift.
+- **attendance** stores one record per employee per date.
+
+## Production considerations
+
+This project is designed as a portfolio prototype. Before production use:
+
+1. Serve it behind HTTPS and configure secure headers.
+2. Move secrets and environment-specific settings to environment variables.
+3. Disable public access to setup and maintenance scripts.
+4. Replace the demo administrator credential.
+5. Add rate limiting, password recovery, audit logs, and automated tests.
+6. Use a production database and web server instead of PHP's built-in server.
+
+## Roadmap
+
+- [ ] Paid-time-off and holiday calendars
+- [ ] Exportable PDF/CSV reports
+- [ ] Employee and shift administration screens
+- [ ] Audit trail for attendance corrections
+- [ ] Automated unit and integration tests
+
+## License
+
+Add the license that matches how you want others to use this portfolio project before publishing it publicly.
